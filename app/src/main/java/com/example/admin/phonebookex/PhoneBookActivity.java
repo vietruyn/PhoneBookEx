@@ -11,13 +11,11 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Activity {
-    public TextView outputText;
-    //-> Atributos (Componentes)
+public class PhoneBookActivity extends Activity {
+
     private ListView lvPhoneBook;
     private PhoneBookAdapter adapter;
     private ArrayList<PhoneBook> phoneBookArrayList;
@@ -45,24 +43,16 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-//        fetchContacts();
+        setContentView(R.layout.activity_phonebook);
         new getListContact().execute();
-
 
     }
 
-    //    public void fetchContacts() {
-//
-//
-//        // Loop for every contact in the phone
-//
-//    }
     class getListContact extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mProgressDialog = new ProgressDialog(MainActivity.this);
+            mProgressDialog = new ProgressDialog(PhoneBookActivity.this);
             mProgressDialog.setMessage("Please Waiting...");
             mProgressDialog.show();
         }
@@ -108,18 +98,13 @@ public class MainActivity extends Activity {
                             email = emailCursor.getString(emailCursor.getColumnIndex(DATA));
                             phoneBook.setEmail(email);
                             output.append("\nEmail:" + email);
-
-
                         }
 
                         emailCursor.close();
                         phoneBookArrayList.add(phoneBook);
                         Log.e("PhoneBook: ", name + " " + phoneNumber + " " + email + "\n");
                     }
-
-
                 }
-
             }
             return null;
         }
@@ -129,7 +114,7 @@ public class MainActivity extends Activity {
             super.onPostExecute(aVoid);
             mProgressDialog.hide();
             lvPhoneBook = (ListView) findViewById(R.id.lvPhoneNumber);
-            adapter = new PhoneBookAdapter(MainActivity.this, phoneBookArrayList);
+            adapter = new PhoneBookAdapter(PhoneBookActivity.this, phoneBookArrayList);
             lvPhoneBook.setAdapter(adapter);
         }
     }

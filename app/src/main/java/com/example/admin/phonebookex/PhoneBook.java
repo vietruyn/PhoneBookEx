@@ -10,7 +10,7 @@ public class PhoneBook {
     private String name, phoneNumber, email;
 
 
-    //-> Constructor
+    //-> constructor
     public PhoneBook(){
 
     }
